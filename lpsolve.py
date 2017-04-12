@@ -1,13 +1,13 @@
 from lpsolve55 import *
 
-X=276
-epaisseur = 18;
-taille_planche=2000;
+X=272
+epaisseur = 18
+taille_planche=2000
 nb_planche=9
 
-x=[X-2*epaisseur, X-epaisseur, 2*X-2*epaisseur, 2*X, 3*X-epaisseur, 3*X, 4*X]
+x=[X-2*epaisseur, X, X+epaisseur, 2*X-2*epaisseur, 2*X, 3*X-epaisseur, 3*X, 4*X]
 
-nb_x = [13,14,2,10,2,1,2]
+nb_x = [13,10,4,2,10,2,1,2]
 
 
 planche=(nb_planche)*[[]]
@@ -30,6 +30,9 @@ for i in range(0, len(x)*nb_planche, nb_planche):
 for i in range (0, nb_planche):
     lpsolve('add_constraint', lp, planche[i], LE, taille_planche)
 
+for i in range(1, len(x)*nb_planche):
+	lpsolve('set_int', lp, i, 1)
+
 lpsolve('solve', lp)
-lpsolve('get_objective', lp)
+print(lpsolve('get_variables', lp))
 
